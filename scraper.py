@@ -14,7 +14,7 @@ class GisMeteoScraper:
     def __init__(self, gismeteo_address, city):
         self.gismeteo_address = gismeteo_address
         self.city = city
-        self.check_collection(self.city)
+        # self.check_collection(self.city)
         self.scrape_info(self.gismeteo_address)
         self.date_of_scraping = datetime()
 
