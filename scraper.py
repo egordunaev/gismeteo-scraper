@@ -14,8 +14,9 @@ class GisMeteoScraper:
     def __init__(self, gismeteo_address, city):
         self.gismeteo_address = gismeteo_address
         self.city = city
-        self.check_collection(self.city)
-        self.scrape_info(self.gismeteo_address)
+        self.date_scraped = str(f"{datetime.today().day()}/{datetime.today().month()}/{datetime.today().year()}")
+        self.weather = dict()
+        self.time_of_day = dict()
     
     def check_collection(self, city):
         try:
@@ -27,11 +28,11 @@ class GisMeteoScraper:
         except Exception as ex:
             raise ex
     
-    def scrape_info(self, address):
+    def scrape_info(self):
         try:
-            page = requests.get(address, headers={"User-Agent":"Mozilla/5.0"})
+            page = requests.get(self.gismeteo_address, headers={"User-Agent":"Mozilla/5.0"})
             soup = BeautifulSoup(page.content, "html.parser")
-            date_scraped = str(f"{datetime.today().day()}/{datetime.today().month()}/{datetime.today().year()}")
+            
             return soup
         except Exception as ex:
             raise ex
