@@ -18,7 +18,7 @@ class GisMeteoScraper:
             soup = BeautifulSoup(page.content, "html.parser")
             self.date_of_scraping = str(f"{datetime.today().day}/{datetime.today().month}/{datetime.today().year}")
             self._id = int(str(f"{datetime.today().day}{datetime.today().month}{datetime.today().year}"))
-            self.weather = {"id": self._id, "date": self.date_of_scraping}
+            self.weather = {"id": self._id, "date": self.date_of_scraping, "city": self.city}
             times = soup.find("div", {"class": "widget__row widget__row_time"}).find_all("div", {"class": "w_time"})
             time_dict = dict()
             iterator = 0
