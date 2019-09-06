@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 
-
 class GisMeteoScraper:
     def __init__(self, gismeteo_address):
         self.gismeteo_address = gismeteo_address
@@ -40,7 +39,6 @@ class GisMeteoScraper:
                                         "gm_activity": self.get_gm_activity(soup, time_dict[item]["id"]),
                                         "sun": self.get_sun_info(soup, time_dict[item]["id"]),
                                         "moon": self.get_moon_info(soup, time_dict[item]["id"])})
-            
             self.weather.update(time_dict)
             return self.weather
         except Exception as ex:
@@ -82,7 +80,7 @@ class GisMeteoScraper:
             return gust
         except Exception:
             return "No info"
-    
+
     def get_precipitation(self, soup, time_id):
         try:
             precipitation_soup = soup.find("div", {"class": "widget__row widget__row_table widget__row_precipitation"}).find_all("div", {"class": "widget__item"})
@@ -90,7 +88,7 @@ class GisMeteoScraper:
             return precipitation
         except Exception:
             return "Without precipitation"
-    
+
     def get_precipitation_in_radius(self, soup, time_id):
         try:
             precipitation_in_r = soup.find("div", {"class": "widget__row widget__row_precipitationradius"}).find_all("div", {"class": "widget__value"})
@@ -103,7 +101,7 @@ class GisMeteoScraper:
                 return precipitation
             except Exception:
                 return "No info"
-    
+
     def get_road_condition(self, soup, time_id):
         try:
             road_condition_soup = soup.find("div", {"class": "widget__row widget__row_roadcondition"}).find_all("div", {"class": "w_roadcondition__description"})
@@ -111,7 +109,7 @@ class GisMeteoScraper:
             return road_condition
         except Exception:
             return "No info"
-    
+
     def get_pressure(self, soup, time_id):
         try:
             pressure_soup = soup.find("div", {"class": "widget__row widget__row_pressure"}).find_all("div", {"class": "value"})
@@ -121,7 +119,7 @@ class GisMeteoScraper:
             return pressure
         except Exception as ex:
             raise ex
-    
+
     def get_humidity(self, soup, time_id):
         try:
             humidity_soup = soup.find("div", {"class": "widget__row widget__row_table widget__row_humidity"}).find_all("div", {"class": "widget__item"})
@@ -129,7 +127,7 @@ class GisMeteoScraper:
             return humidity
         except Exception as ex:
             raise ex
-    
+
     def get_visibility(self, soup, time_id):
         try:
             visibility_soup = soup.find("div", {"class": "widget__row widget__row_table widget__row_visibility"}).find_all("div", {"class": "widget__item"})
@@ -137,7 +135,7 @@ class GisMeteoScraper:
             return visibility
         except Exception as ex:
             raise ex
-    
+
     def get_uvb(self, soup, time_id):
         try:
             uvb_soup = soup.find("div", {"class": "widget__row widget__row_table widget__row_uvb"}).find_all("div", {"class": "widget__item"})
@@ -159,7 +157,7 @@ class GisMeteoScraper:
         except Exception:
             uvb_value = uvb_soup[time_id].contents[0].contents[0]
             return {"value": uvb_value, "description": ""}
-    
+
     def get_gm_activity(self, soup, time_id):
         try:
             gm_activity_soup = soup.find("div", {"class": "widget__row widget__row_table widget__row_gm"}).find_all("div", {"class": "widget__item"})
@@ -181,7 +179,7 @@ class GisMeteoScraper:
         except Exception:
             gm_value = gm_activity_soup[time_id].contents[0].contents[0]
             return {"value": gm_value, "description": ""}
-    
+
     def get_sun_info(self, soup, time_id):
         try:
             sun_soup = soup.find("div", {"class": "astronomy_block _sun"}).find_all("div", {"class": "ii info_detail"})
@@ -193,7 +191,7 @@ class GisMeteoScraper:
             return sun
         except Exception as ex:
             raise ex
-    
+
     def get_moon_info(self, soup, time_id):
         try:
             moon_soup = soup.find("div", {"class": "astronomy_block _moon"}).find_all("div", {"class": "ii info_detail"})
