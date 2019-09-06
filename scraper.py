@@ -88,8 +88,8 @@ class GisMeteoScraper:
             precipitation_soup = soup.find("div", {"class": "widget__row widget__row_table widget__row_precipitation"}).find_all("div", {"class": "widget__item"})
             precipitation = precipitation_soup[time_id].contents[0].contents[0].contents[0]
             return precipitation
-        except Exception as ex:
-            raise ex
+        except Exception:
+            return "Without precipitation"
     
     def get_precipitation_in_radius(self, soup, time_id):
         try:
