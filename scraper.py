@@ -49,8 +49,8 @@ class GisMeteoScraper:
     def get_temperature(self, soup, time_id):
         try:
             temperature_soup = soup.find("div", {"class": "templine w_temperature"}).find_all("div", {"class": "value"})
-            temperature = {"celsius": float(temperature_soup[time_id].contents[0].contents[0]),
-                           "fahrenheit": float(temperature_soup[time_id].contents[1].contents[0])}
+            temperature = {"celsius": temperature_soup[time_id].contents[0].contents[0],
+                           "fahrenheit": temperature_soup[time_id].contents[1].contents[0]}
             return temperature
         except Exception as ex:
             raise ex
@@ -81,7 +81,7 @@ class GisMeteoScraper:
                     "km/h": gusts[time_id].contents[0].contents[0].contents[3].contents[0].strip()}
             return gust
         except Exception:
-            return "None"
+            return "No info"
     
     def get_precipitation(self, soup, time_id):
         try:
@@ -98,18 +98,19 @@ class GisMeteoScraper:
             return precipitation
         except Exception:
             try:
+                precipitation_in_r = soup.find("div", {"class": "widget__row widget__row_precipitationradius"}).find_all("div", {"class": "widget__value"})
                 precipitation = precipitation_in_r[time_id].contents[1].contents[0].strip()
                 return precipitation
-            except Exception as ex:
-                raise ex
+            except Exception:
+                return "No info"
     
     def get_road_condition(self, soup, time_id):
         try:
             road_condition_soup = soup.find("div", {"class": "widget__row widget__row_roadcondition"}).find_all("div", {"class": "w_roadcondition__description"})
             road_condition = road_condition_soup[time_id].contents[0]
             return road_condition
-        except Exception as ex:
-            raise ex
+        except Exception:
+            return "No info"
     
     def get_pressure(self, soup, time_id):
         try:
@@ -155,8 +156,9 @@ class GisMeteoScraper:
                 uvb_description = "Extreme storm"
             uvb = {"value": uvb_value, "description": uvb_description}
             return uvb
-        except Exception as ex:
-            raise ex
+        except Exception:
+            uvb_value = uvb_soup[time_id].contents[0].contents[0]
+            return {"value": uvb_value, "description": ""}
     
     def get_gm_activity(self, soup, time_id):
         try:
@@ -176,8 +178,9 @@ class GisMeteoScraper:
                 gm_description = "Extreme storm"
             gm_activity = {"value": gm_value, "description": gm_description}
             return gm_activity
-        except Exception as ex:
-            raise ex
+        except Exception:
+            gm_value = gm_activity_soup[time_id].contents[0].contents[0]
+            return {"value": gm_value, "description": ""}
     
     def get_sun_info(self, soup, time_id):
         try:
