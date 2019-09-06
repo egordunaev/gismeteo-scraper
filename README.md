@@ -1,6 +1,6 @@
 # GisMeteoScraper
 
-This is a python web scraper for [gismeteo.com](gismeteo.com), it scrapes all html content from webpage and
+This is a python web scraper for [gismeteo](https://www.gismeteo.com/), it scrapes all html content from webpage and
 
 
 ### Requirements
@@ -58,5 +58,5 @@ GisMeteoScraper's `scrape_info()` outputs `dict()` object, which contains weathe
 		                'km/h': '', 
 		                'm/s': '', 
 		                'mi/h': ''}}},
-But sometimes some field may have `No data` in them. In that case that means gismeteo.com didn't show this field, or it was empty.
+But sometimes some field may have `No data` in them. In that case that means [gismeteo](https://www.gismeteo.com/) didn't show this field, or it was empty.
 
