@@ -9,6 +9,8 @@ GisMeteoScraper uses libraries such as:
 * requests
 * bs4 (BeautifulSoup4)
 
+GisMeteoScraper is also built on `python 3.7.3`
+
 ### Usage example
 
     from scraper import GisMeteoScraper
@@ -58,5 +60,6 @@ GisMeteoScraper's `scrape_info()` outputs `dict()` object, which contains weathe
 		                'km/h': '', 
 		                'm/s': '', 
 		                'mi/h': ''}}},
-But sometimes some field may have `No data` in them. In that case that means [gismeteo](https://www.gismeteo.com/) didn't show this field, or it was empty.
+But sometimes some field may have `No data` in them. That's probably because [gismeteo](https://www.gismeteo.com/) didn't show this field, or it was empty. Also, returning `dict()` may contain `_error` field if there was any.
 
+If you have any questions or issues, you can see all issues [here](https://github.com/egordunaev/gismeteo-scraper/issues), alternatively you can [create a new issue](https://github.com/egordunaev/gismeteo-scraper/issues/new)
