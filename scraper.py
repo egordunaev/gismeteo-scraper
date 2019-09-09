@@ -184,10 +184,26 @@ class GisMeteoScraper:
         try:
             sun_soup = soup.find("div", {"class": "astronomy_block _sun"}).find_all("div", {"class": "ii info_detail"})
             sun_soup_description = soup.find("div", {"class": "astronomy_blocks clearfix"}).find_all("div", {"class": "astronomy_block _sun"})
-            sun = {"title": sun_soup[0].contents[1].contents[0],
-                   "sunrise": sun_soup[0].contents[3].contents[0].split(" — ")[1],
-                   "sunset": sun_soup[0].contents[5].contents[0].split(" — ")[1],
-                   "description": sun_soup_description[0].contents[5].contents[1].contents[0].strip()}
+            try:
+                _title = sun_soup[0].contents[1].contents[0].strip()
+            except Exception:
+                _title = "None"
+            try:
+                _sunrise = sun_soup[0].contents[3].contents[0].split(" — ")[1]
+            except Exception:
+                _sunrise = "None"
+            try:
+                _sunset = sun_soup[0].contents[5].contents[0].split(" — ")[1]
+            except Exception:
+                _sunset = "None"
+            try:
+                _description = sun_soup_description[0].contents[5].contents[1].contents[0].strip()
+            except Exception:
+                _description = "None"
+            sun = {"title": _title,
+                   "sunrise": _sunrise,
+                   "sunset": _sunset,
+                   "description": _description}
             return sun
         except Exception as ex:
             raise ex
@@ -196,10 +212,26 @@ class GisMeteoScraper:
         try:
             moon_soup = soup.find("div", {"class": "astronomy_block _moon"}).find_all("div", {"class": "ii info_detail"})
             moon_soup_description = soup.find("div", {"class": "astronomy_blocks clearfix"}).find_all("div", {"class": "astronomy_block _moon"})
-            moon = {"title": moon_soup[0].contents[1].contents[0].strip(),
-                    "sunrise": moon_soup[0].contents[3].contents[0].split(" — ")[1],
-                    "sunset": moon_soup[0].contents[5].contents[0].split(" — ")[1],
-                    "description": moon_soup_description[0].contents[5].contents[1].contents[0].strip()}
+            try:
+                _title = moon_soup[0].contents[1].contents[0].strip()
+            except Exception:
+                _title = "None"
+            try:
+                _sunrise = moon_soup[0].contents[3].contents[0].split(" — ")[1]
+            except Exception:
+                _sunrise = "None"
+            try:
+                _sunset = moon_soup[0].contents[5].contents[0].split(" — ")[1]
+            except Exception:
+                _sunset = "None"
+            try:
+                _description = moon_soup_description[0].contents[5].contents[1].contents[0].strip()
+            except Exception:
+                _description = "None"
+            moon = {"title": _title,
+                    "sunrise": _sunrise,
+                    "sunset": _sunset,
+                    "description": _description}
             return moon
         except Exception as ex:
             raise ex
