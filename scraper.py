@@ -9,6 +9,7 @@ class GisMeteoScraper:
         self.city = self.gismeteo_address.split("-")[1]
         self.date_of_scraping = None
         self._id = int()
+        self._error = Exception()
         self.weather = dict()
 
     def scrape_info(self):
@@ -42,7 +43,8 @@ class GisMeteoScraper:
             self.weather.update(time_dict)
             return self.weather
         except Exception as ex:
-            raise ex
+            self._error = ex
+            return self.weather.update({"ERROR": self._error})
 
     def get_temperature(self, soup, time_id):
         try:
@@ -50,8 +52,8 @@ class GisMeteoScraper:
             temperature = {"celsius": temperature_soup[time_id].contents[0].contents[0],
                            "fahrenheit": temperature_soup[time_id].contents[1].contents[0]}
             return temperature
-        except Exception as ex:
-            raise ex
+        except Exception:
+            return "No data"
 
     def get_wind_speed(self, soup, time_id):
         try:
@@ -60,15 +62,19 @@ class GisMeteoScraper:
                           "mi/h": wind_speed_soup[time_id].contents[0].contents[0].contents[2].contents[0].strip(),
                           "km/h": wind_speed_soup[time_id].contents[0].contents[0].contents[3].contents[0].strip()}
             return wind_speed
-        except Exception as ex:
-            raise ex
+        except Exception:
+            return "No data"
 
     def get_wind_direction(self, soup, time_id):
         try:
             wind_direction = soup.find("div", {"class": "widget__row widget__row_table widget__row_wind"}).find_all("div", {"class": "w_wind__direction gray"})
-            direction = wind_direction[time_id].contents[0].strip()
-            return direction
+            direction = wind_direction[time_id].contents
+            if direction != []:
+                _direction = direction[0].strip()
+                return _direction
+            return "No data"
         except Exception as ex:
+            self._error = ex
             raise ex
 
     def get_gusts(self, soup, time_id):
@@ -79,7 +85,7 @@ class GisMeteoScraper:
                     "km/h": gusts[time_id].contents[0].contents[0].contents[3].contents[0].strip()}
             return gust
         except Exception:
-            return "No info"
+            return "No data"
 
     def get_precipitation(self, soup, time_id):
         try:
@@ -100,7 +106,7 @@ class GisMeteoScraper:
                 precipitation = precipitation_in_r[time_id].contents[1].contents[0].strip()
                 return precipitation
             except Exception:
-                return "No info"
+                return "No data"
 
     def get_road_condition(self, soup, time_id):
         try:
@@ -108,7 +114,7 @@ class GisMeteoScraper:
             road_condition = road_condition_soup[time_id].contents[0]
             return road_condition
         except Exception:
-            return "No info"
+            return "No data"
 
     def get_pressure(self, soup, time_id):
         try:
@@ -117,8 +123,8 @@ class GisMeteoScraper:
                         "h_pa": pressure_soup[time_id].contents[1].contents[0],
                         "in_hg": pressure_soup[time_id].contents[2].contents[0]}
             return pressure
-        except Exception as ex:
-            raise ex
+        except Exception:
+            return "No data"
 
     def get_humidity(self, soup, time_id):
         try:

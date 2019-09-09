@@ -1,6 +1,6 @@
 # GisMeteoScraper
 
-This is a python web scraper for [gismeteo](https://www.gismeteo.com/), it scrapes all html content from webpage and
+This is a python web scraper for [gismeteo](https://www.gismeteo.com/), it scrapes all html content from webpage.
 
 
 ### Requirements
