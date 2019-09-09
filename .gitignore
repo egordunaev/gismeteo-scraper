@@ -2,3 +2,7 @@
 /__pycache__/
 /.vscode/
 test.py
+/build/
+/dist/
+/gis_meteo_scraper.egg-info/
+.pypirc
