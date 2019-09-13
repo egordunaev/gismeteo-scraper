@@ -5,4 +5,5 @@ test.py
 /build/
 /dist/
 /gis_meteo_scraper.egg-info/
+/gismeteoscraper.egg-info/
 .pypirc

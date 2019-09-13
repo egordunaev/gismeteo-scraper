@@ -4,8 +4,8 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="gis-meteo-scraper",
-    version="0.0.1",
+    name="gismeteoscraper",
+    version="0.0.3",
     author="Egor Dunaev",
     author_email="egodunaev@gmail.com",
     description="A simple web scraper for gismeteo.com",
